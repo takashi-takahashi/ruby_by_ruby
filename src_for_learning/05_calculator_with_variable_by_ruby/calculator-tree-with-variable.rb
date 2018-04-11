@@ -44,8 +44,9 @@ def evaluate(tree, env)
   else
     p("unknown input")
     pp(tree)
+    raise("unknown code")
   end
-  raise("unknown code")
+
 end
 
 expr = minruby_load()
