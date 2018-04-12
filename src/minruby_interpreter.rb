@@ -28,7 +28,20 @@ def evaluate(tree, genv, lenv)
   when "**"
     evaluate(tree[1], genv, lenv) ** evaluate(tree[2], genv, lenv)
   when "func_call" # fixme
-    p(evaluate(tree[2], genv, lenv))
+    args = []
+    i = 0
+    while tree[i + 2]
+      args[i] = evaluate(tree[i + 2], genv, lenv)
+      i = i + 1
+    end
+    mhd = genv[tree[1]]
+    if mhd[0] == "builtin"
+      minruby_call(mhd[1], args)
+    else
+      p("unsupported function")
+    end
+
+    # p(evaluate(tree[2], genv, lenv))
   when "var_assign"
     genv[tree[1]] = evaluate(tree[2], genv, lenv)
   when "var_ref"
