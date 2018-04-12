@@ -22,3 +22,5 @@ while i < 10
   p(i)
   i = i + 1
 end
+
+p(1,2,3)
