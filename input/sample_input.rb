@@ -31,7 +31,50 @@ def aho(x, y)
   x + y
 end
 
-aho(1,20)
+x = 0
+
+aho(1, 20)
 
 p(aho(1, 2000))
 # raise("i am your father")
+def foo()
+  x = 0
+  p(x)
+end
+
+x = 1
+foo() #=> 0
+p(x) #=> 1
+
+
+p("##############")
+
+def fib(x)
+  if x <= 1
+    x
+  else
+    fib(x - 1) + fib(x - 2)
+  end
+end
+
+p(fib(15))
+
+def even?(n)
+  if n == 0
+    true
+  else
+    odd?(n - 1)
+  end
+end
+
+def odd?(n)
+  if n == 0
+    false
+  else
+    even?(n - 1)
+  end
+end
+
+
+p(even?(9))
+p(odd?(9))
