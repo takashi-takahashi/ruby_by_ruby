@@ -23,4 +23,15 @@ while i < 10
   i = i + 1
 end
 
-p(1,2,3)
+p(1, 2, 3)
+
+hello()
+
+def aho(x, y)
+  x + y
+end
+
+aho(1,20)
+
+p(aho(1, 2000))
+# raise("i am your father")

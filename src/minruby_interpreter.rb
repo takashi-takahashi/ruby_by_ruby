@@ -27,25 +27,34 @@ def evaluate(tree, genv, lenv)
     evaluate(tree[1], genv, lenv) % evaluate(tree[2], genv, lenv)
   when "**"
     evaluate(tree[1], genv, lenv) ** evaluate(tree[2], genv, lenv)
-  when "func_call" # fixme
+  when "func_call"
     args = []
     i = 0
     while tree[i + 2]
       args[i] = evaluate(tree[i + 2], genv, lenv)
       i = i + 1
     end
-    mhd = genv[tree[1]]
+    mhd = genv[tree[1]] # function type
     if mhd[0] == "builtin"
       minruby_call(mhd[1], args)
     else
-      p("unsupported function")
+      params = mhd[1]
+      i = 0
+      while params[i]
+        lenv[params[i]] = args[i]
+        i = i + 1
+      end
+      evaluate(mhd[2], genv, lenv)
+      # p("unsupported function")
     end
 
-    # p(evaluate(tree[2], genv, lenv))
+  when "func_def"
+    genv[tree[1]] = ["user_defined", tree[2], tree[3]]
+
   when "var_assign"
-    genv[tree[1]] = evaluate(tree[2], genv, lenv)
+    lenv[tree[1]] = evaluate(tree[2], genv, lenv)
   when "var_ref"
-    genv[tree[1]]
+    lenv[tree[1]]
   when "if"
     if evaluate(tree[1], genv, lenv)
       evaluate(tree[2], genv, lenv)
@@ -75,6 +84,14 @@ end
 expr = minruby_load()
 tree = minruby_parse(expr)
 
-genv = {"p" => ["builtin", "p"]} # environment for function names
+def hello()
+  p("hello world")
+end
+
+genv = {
+    "p" => ["builtin", "p"],
+    "raise" => ["builtin", "raise"],
+    "hello" => ["builtin", "hello"]
+} # environment for function names
 lenv = {} # environment for variable names
 evaluate(tree, genv, lenv)
