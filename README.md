@@ -10,6 +10,12 @@ gem install minruby
 
 
 ## usage
+* normal usage
 ```sh
 ruby ./src/minruby_interpreter.rb ./input/sample_input.rb
+```
+
+* bootstrap (joke)
+```bash
+ruby ./src/minruby_interpreter.rb ./src/minruby/minruby_interpreter.rb ./input/sample_input.rb
 ```
