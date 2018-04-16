@@ -65,6 +65,24 @@ def evaluate(tree, genv, lenv)
     while evaluate(tree[1], genv, lenv)
       evaluate(tree[2], genv, lenv)
     end
+  when "ary_new"
+    ary = [] # new array
+    i = 0
+    while tree[i + 1]
+      ary[i] = evaluate(tree[i + 1], genv, lenv)
+      i = i + 1
+    end
+    ary
+  when "ary_ref"
+    ary = evaluate(tree[1], genv, lenv)
+    index = evaluate(tree[2], genv, lenv)
+    ary[index]
+  when "ary_assign"
+    ary = evaluate(tree[1], genv, lenv)
+    idx = evaluate(tree[2],genv, lenv)
+    val = evaluate(tree[3], genv, lenv)
+    ary[idx] = val
+
   when "stmts"
     i = 1
     last = nil
