@@ -1,4 +1,4 @@
-require "minruby"
+require("minruby")
 
 
 def evaluate(tree, genv, lenv)
@@ -121,6 +121,10 @@ end
 genv = {
     "p" => ["builtin", "p"],
     "raise" => ["builtin", "raise"],
+    "require" => ["builtin", "require"],
+    "minruby_parse" => ["builtin", "minruby_parse"],
+    "minruby_load" => ["builtin", "minruby_load"],
+    "minruby_call" => ["builtin", "minruby_call"],
     "hello" => ["builtin", "hello"]
 } # environment for function names
 lenv = {} # environment for variable names
