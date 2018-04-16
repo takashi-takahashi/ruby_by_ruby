@@ -79,9 +79,21 @@ def evaluate(tree, genv, lenv)
     ary[index]
   when "ary_assign"
     ary = evaluate(tree[1], genv, lenv)
-    idx = evaluate(tree[2],genv, lenv)
+    idx = evaluate(tree[2], genv, lenv)
     val = evaluate(tree[3], genv, lenv)
     ary[idx] = val
+
+  when "hash_new"
+    hsh = {}
+    i = 0
+    while tree[i + 1]
+      key = evaluate(tree[i + 1], genv, lenv)
+      val = evaluate(tree[i + 2], genv, lenv)
+      i = i + 2
+      hsh[key] = val
+    end
+    hsh
+
 
   when "stmts"
     i = 1
